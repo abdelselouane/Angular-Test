@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate >
+<mat-dialog-content >
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter Email" 
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+            [(ngModel)]="model.email" #email="ngModel" name="email"
+            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+            required>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+            <div *ngIf="email.errors.required">Email is required</div>
+            <div *ngIf="email.errors.pattern">Enter a valid email</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" 
+            id="firstname" name="firstname" placeholder="Enter First Name"
+            [(ngModel)]="model.firstname" #firstname="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" minlength="3" required>
+            <div *ngIf="f.submitted && firstname.invalid" class="invalid-feedback">
+                <div *ngIf="firstname.errors.required">First Name is required</div>
+                <!-- <div *ngIf="firstname.errors.pattern">Only letters are allowed</div> -->
+                <div *ngIf="firstname.errors.minlength">Minimum Characters are 3</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" 
+            [(ngModel)]="model.lastname" #lastname="ngModel" placeholder="Enter Last Name"
+            [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" minlength=3 required>
+            <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
+                <div *ngIf="lastname.errors.required">Last Name is required</div>
+                <div *ngIf="firstname.errors.minlength">Minimum Characters are 3</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="profession">Profession</label>
+            <select class="form-control" id="profession" name="profession" [(ngModel)]="model.profession" #profession="ngModel">
+                <option>Select One</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Desginer">Desginer</option>
+                <option Value="Developer">Developer</option>
+                <option value="Manager">Manager</option>
+                <option value="Sales">Sales</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date Of Birth</label>
+            <input type="text" [(ngModel)]="model.dob" #dob="ngModel" class="form-control" id="dob" name="dob" placeholder="Enter Date Of Birth" bsDatepicker>
+        </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button mat-accent" (click)="onSubmit()">Save</button>
+    <button class="mat-raised-button" (click)="close('cancel')">Cancel</button>
+</mat-dialog-actions>
+</form>
